@@ -11,7 +11,10 @@ int Timer(unsigned long Interval)
 	else return (0);
 }
 
-
+int TimerReset()
+{
+	previousMillis = millis();
+}
 
 
 void doEncoderA()
@@ -37,5 +40,15 @@ void doEncoderB() {
 			PWMFan -= 1;
 		if (PWMFan <= lowerPWMlimit) PWMFan = lowerPWMlimit;
 		rotating = false;
+	}
+}
+
+int getPWM()
+{
+	char buffer[6];
+
+	if (pwmReader.available())
+	{
+		pwmReader.read();
 	}
 }

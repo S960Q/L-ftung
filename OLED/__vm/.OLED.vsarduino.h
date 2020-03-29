@@ -86,9 +86,6 @@ typedef void *__builtin_va_list;
 #define pgm_read_float(address_short) float()
 #define pgm_read_ptr(address_short)   short()
 
-#include "Lüftung.ino"
-#include "1_Setup.ino"
-#include "2_Funktionen.ino"
-#include "4_Haupt.ino"
+#include "OLED.ino"
 #endif
 #endif

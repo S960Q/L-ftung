@@ -15,14 +15,11 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <None Include="1_Setup.ino" />
-    <None Include="2_Funktionen.ino" />
-    <None Include="Lüftung.ino" />
-    <None Include="4_Haupt.ino" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="__vm\.Lüftung.vsarduino.h">
+    <ClInclude Include="__vm\.Test.vsarduino.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Knob.ino" />
   </ItemGroup>
 </Project>

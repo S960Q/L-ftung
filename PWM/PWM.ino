@@ -4,21 +4,33 @@
  Author:	Simon
 */
 #include <Arduino.h>
-#define pin 6
+#define pwmOut 6
+#define pwmOut2 5
+#define en1 9
+#define en2 10
+
+
 #define pwm 0
 // the setup function runs once when you press reset or power the board
 void setup() {
-    pinMode(pin, OUTPUT);
+    pinMode(pwmOut, OUTPUT);
+    pinMode(en1, OUTPUT);
+    pinMode(en2, OUTPUT);
+
     Serial.begin(9600);
+    digitalWrite(en1, 1);
+    digitalWrite(en2, 1);
+
 }
 int i = 0;
-// the loop function runs over and over again until power down or reset
+
 void loop() {
-    
-    analogWrite(pin, i);
+   
+
+    analogWrite(pwmOut, i);
     i++;
-    if (i > 240) i = 0;
-    delay(10);
-    Serial.println(i);
+    if (i > 100) i = 0;
+    delay(100);
+    
 
 }

@@ -10,7 +10,7 @@ void loop() {
 
     switch (menu) {
     
-    case 0:
+    case 0://Lüfter
 
         oled.clear();
         oled.setFont(Arial_bold_14);
@@ -27,6 +27,7 @@ void loop() {
                 oled.print("  ");
                 Serial.println(PWMFan, DEC);
                 lastReportedPos = PWMFan;
+                analogWrite(FanPin, PWMFan);
             }
         }
         menu++;
@@ -36,6 +37,7 @@ void loop() {
         int PWMFanSave = PWMFan;
         bool tmpStatus = 0;
         bool timeout = 0;
+        TimerReset();
         oled.setFont(TimesNewRoman16);
         oled.clear();
         oled.print("Bluethooth:");
@@ -75,6 +77,7 @@ void loop() {
         }
         PWMFan = PWMFanSave;
         if (!timeout) BleStatus = tmpStatus;
+
         menu = 0;
         delay(600);
         Serial.println(BleStatus);

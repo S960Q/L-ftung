@@ -24,7 +24,7 @@ void doEncoderA()
 		A_set = !A_set;
 		// adjust counter + if A leads B
 		if (A_set && !B_set)
-			PWMFan += 1;
+			PWMFan += knobStep;
 		if (PWMFan >= upperPWMLimit) PWMFan = upperPWMLimit;
 		rotating = false;  // no more debouncing until loop() hits again
 	}
@@ -37,7 +37,7 @@ void doEncoderB() {
 		B_set = !B_set;
 		//  adjust counter - 1 if B leads A
 		if (B_set && !A_set)
-			PWMFan -= 1;
+			PWMFan -= knobStep;
 		if (PWMFan <= lowerPWMlimit) PWMFan = lowerPWMlimit;
 		rotating = false;
 	}

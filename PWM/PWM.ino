@@ -51,16 +51,20 @@
             | _BV(WGM11);  // mode 10: ph. correct PWM, TOP = ICR1
         TCCR1B = _BV(WGM13)   // ditto
             | _BV(CS10);   // prescaler = 1
-        ICR1 = 320;         // TOP = 320
+        ICR1 = 620;         // TOP = 320
 
         // Set the PWM pins as output.
         pinMode(9, OUTPUT);
         pinMode(10, OUTPUT);
+        Serial.begin(9600);
     }
-
+    int i = 0;
     void loop()
     {
         // Just an example:
-        analogWrite25k(9, 10);
-        for (;;);  // infinite loop
+        analogWrite25k(9, i);
+        i++;
+        if (i > 100) i = 0;
+        delay(60);
+        Serial.println(i);
     }

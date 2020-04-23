@@ -4,9 +4,9 @@
  Author:	Simon
 */
 #include <Arduino.h>
-#define pwmOut 6
+#define pwmOut 9
 #define pwmOut2 5
-#define en1 9
+#define en1 6
 #define en2 10
 
 
@@ -21,15 +21,42 @@ void setup() {
     digitalWrite(en1, 1);
     digitalWrite(en2, 1);
 
+
+    TCCR1A = 0;
+    TCCR1B = 0;
+
+
+
+    //Modus Fast PWM-Mode 10 Bit einstellen
+    TCCR1A |= (1 << WGM10) | (1 << WGM11);
+    TCCR1B |= (1 << WGM12);
+
+
+
+    //Vorteiler auf 8 setzen
+
+    TCCR1B |= (1 << CS10) | (0 << CS11) | (0 << CS12);
+
+
+
+    //Nichtinvertiertes PWM-Signal setzen
+    TCCR1A |= (1 << COM1A1);
+
+
+    //PWM-Pin 9 als Ausgang definieren
+    DDRB |= (1 << DDB1);
+
+
+
 }
 int i = 0;
 
 void loop() {
    
 
-    analogWrite(pwmOut, i);
+    OCR1A = i;
     i++;
-    if (i > 100) i = 0;
+    if (i > 200) i = 0;
     delay(100);
     
 

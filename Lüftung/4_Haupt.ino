@@ -2,7 +2,7 @@
 int menu = 0;
 bool BleStatus = 0;
 unsigned long menuTimeout = 5000;
-
+bool hitHundred = false;
 void loop() {
 
 
@@ -25,6 +25,20 @@ void loop() {
                 oled.setCursor(0, 0);
                 oled.print(PWMFan);
                 oled.print("  ");
+                if (PWMFan >= 100) hitHundred = true;
+                if (PWMFan < 100 && hitHundred == true)
+                {
+                    oled.clear();
+                    oled.setCursor(0, 0);
+                    oled.print(PWMFan);
+                    hitHundred = false;
+                }
+                if (PWMFan < 10)
+                {
+                    oled.clear();
+                    oled.setCursor(0, 0);
+                    oled.print(PWMFan);
+                }
                 Serial.println(PWMFan, DEC);
                 lastReportedPos = PWMFan;
                 analogWrite(FanPin, PWMFan);

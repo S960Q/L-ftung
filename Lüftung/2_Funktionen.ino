@@ -42,7 +42,7 @@ void doEncoderB() {
 		rotating = false;
 	}
 }
-
+/***
 int getPWM()
 {
 	char buffer[6];
@@ -51,4 +51,27 @@ int getPWM()
 	{
 		pwmReader.read();
 	}
+}**/
+
+ int readBLE(String *buffer)
+{
+	 BLE.listen();  // listen the BLE port
+
+	 if (BLE.available()) //Wurden Daten vom SIM Modul gesendet?
+	 {
+		 String buffer = "";
+		 char c;
+		 int charCount = 0;
+		 while (BLE.available()) {
+			 c = BLE.read();
+			 buffer.concat(c);
+			 delay(1);
+		 }
+
+		 //Serial.println(buffer);
+
+		 //int i = strlen(buffer);
+
+	 }
+	return 0;
 }

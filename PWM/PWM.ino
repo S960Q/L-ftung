@@ -63,7 +63,7 @@
     void loop()
     {
         // Just an example:
-        analogWrite25k(9, 75);
+        analogWrite25k(9, 300);
         i = i + counter;
         if (i == 120) counter = -1;
         if (i == 100) counter = 1;

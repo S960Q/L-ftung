@@ -73,7 +73,7 @@ void setup() {
     oled.set400kHz();
 
     oled.setFont(TimesNewRoman16);
-
+    oled.write("TEst");
    delay(5000);
     
 

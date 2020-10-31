@@ -15,13 +15,13 @@ void loop() {
         oled.clear();
         oled.setFont(Arial_bold_14);
         oled.print(PWMFan);
-        while (digitalRead(Knob))
+        while (digitalRead(Knob)) //Hauptloop?
         {
             rotating = true;
             if (lastReportedPos != PWMFan)
             {
 
-                Serial.print("Index:");
+                //Serial.print("Index:");
                 oled.setCursor(0, 0);
                 oled.print(PWMFan);
                 oled.print("  ");
@@ -29,6 +29,22 @@ void loop() {
                 lastReportedPos = PWMFan;
                 analogWrite(FanPin, PWMFan);
             }
+            //delay(50);
+            BLE.listen();  // listen the BLE port
+            String buffer = "";
+            if (BLE.available()) //Wurden Daten vom SIM Modul gesendet?
+            {
+                char c;
+                int charCount = 0;
+                while (BLE.available()) {
+                    c = BLE.read();
+                    buffer.concat(c);
+                    delay(1);
+                }
+            }
+            
+            if (buffer[0] == 'h') Serial.println("Hallo");
+
         }
         menu++;
         delay(500);
@@ -85,5 +101,8 @@ void loop() {
 
     if (menu > 1) menu = 0;
     if (menu < 0) menu = 1;
+    
+    
+
    // Serial.println(menu);
 }

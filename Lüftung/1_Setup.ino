@@ -11,7 +11,7 @@
 #define Knob 7
 #define KnobTurn1 2
 #define KnobTurn2 3
-#define DhtInnenK 7
+#define DhtInnenK 5
 #define DhtAusenK 8
 #define FanPin 11
 //************Other Definitiions

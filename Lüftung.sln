@@ -17,6 +17,8 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "tmp", "tmp\tmp.vcxproj", "{
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "c_testing", "c_testing\c_testing.vcxproj", "{77BD3978-768E-4090-AD64-D69E1B075975}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "reciverArduino", "reciverArduino\reciverArduino.vcxproj", "{F77C261F-F664-4E92-8221-744BCA80B5AC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -69,6 +71,12 @@ Global
 		{77BD3978-768E-4090-AD64-D69E1B075975}.Release|x64.Build.0 = Release|x64
 		{77BD3978-768E-4090-AD64-D69E1B075975}.Release|x86.ActiveCfg = Release|Win32
 		{77BD3978-768E-4090-AD64-D69E1B075975}.Release|x86.Build.0 = Release|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Debug|x64.ActiveCfg = Debug|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Debug|x86.ActiveCfg = Debug|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Debug|x86.Build.0 = Debug|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Release|x64.ActiveCfg = Release|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Release|x86.ActiveCfg = Release|Win32
+		{F77C261F-F664-4E92-8221-744BCA80B5AC}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

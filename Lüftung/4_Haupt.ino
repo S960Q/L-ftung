@@ -1,7 +1,8 @@
 
-int menu = 0;
+int menu = 2;
 bool BleStatus = 0;
 unsigned long menuTimeout = 5000;
+//unsigned long menuTimeout = 10000;
 bool hitHundred = false;
 void loop() {
 
@@ -15,12 +16,14 @@ void loop() {
         oled.clear();
         oled.setFont(Arial_bold_14);
         oled.print(PWMFan);
+        bool timeout1 = 0;
         while (digitalRead(Knob)) //Hauptloop?
         {
             rotating = true;
             if (lastReportedPos != PWMFan)
             {
-
+                TimerReset();
+                timeout1 = 0;
                 //Serial.print("Index:");
                 oled.setCursor(0, 0);
                 oled.print(PWMFan);
@@ -42,6 +45,11 @@ void loop() {
                 Serial.println(PWMFan, DEC);
                 lastReportedPos = PWMFan;
                 analogWrite(FanPin, PWMFan);
+
+            }
+            if (Timer(menuTimeout) && timeout1 == 0) {
+                timeout1 = 1;
+                oled.clear();
             }
             //delay(50);
             BLE.listen();  // listen the BLE port
@@ -111,6 +119,44 @@ void loop() {
         menu = 0;
         delay(600);
         Serial.println(BleStatus);
+    
+    
+    case 2: //Temperaturanzeige
+
+        timeout = 0;
+        unsigned long tmpTimeout = 50000;
+        TimerReset();
+        oled.clear();
+        oled.setFont(Arial_bold_14);
+        bool hitTen = false;
+        while (digitalRead(Knob))
+        {
+        //float Luftfeuchtigkeit = dhtInnen.readHumidity(); //die Luftfeuchtigkeit auslesen und unter „Luftfeutchtigkeit“ speichern
+
+        float Temperatur = dhtInnen.readTemperature();//die Temperatur auslesen und unter „Temperatur“ speichern
+        oled.setCursor(0, 0);
+        String tmp = "";
+        String temp = " .C";
+        tmp = String (roundf(Temperatur)) + temp;
+        Serial.println(tmp);
+        oled.print(tmp);
+        //oled.print("°C");
+
+        if (Temperatur >= 10) hitTen = true;
+        if (Temperatur < 10 && hitTen == true)
+        {
+            oled.clear();
+            oled.setCursor(0, 0);
+            oled.print(Temperatur);
+            hitTen = false;
+        }
+
+
+        if (Timer(tmpTimeout)) {
+            timeout = 1;
+            break;
+        }
+        }
     }
 
     if (menu > 1) menu = 0;

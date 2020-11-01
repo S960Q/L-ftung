@@ -1,6 +1,6 @@
 #include "DHT.h" //DHT Bibliothek laden
 
-#define DHTPIN 7 //Der Sensor wird an PIN 2 angeschlossen    
+#define DHTPIN 5 //Der Sensor wird an PIN 2 angeschlossen    
 
 #define DHTTYPE DHT22    // Es handelt sich um den DHT11 Sensor
 

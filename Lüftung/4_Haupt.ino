@@ -24,7 +24,7 @@ void loop() {
             {
                 TimerReset();
                 timeout1 = 0;
-                //Serial.print("Index:");
+                Serial.print("Index:");
                 oled.setCursor(0, 0);
                 oled.print(PWMFan);
                 oled.print("  ");

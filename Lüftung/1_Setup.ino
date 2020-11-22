@@ -14,6 +14,8 @@
 #define DhtInnenK 5
 #define DhtAusenK 8
 #define FanPin 11
+#define piPin A0
+#define hiPin A1
 //************Other Definitiions
 #define DHTTYPE DHT22
 DHT dhtInnen(DhtInnenK, DHTTYPE);
@@ -50,6 +52,11 @@ void setup()
     oled.set400kHz();
     oled.setContrast(255);
 
+
+    pinMode(hiPin, OUTPUT);
+    pinMode(piPin, OUTPUT);
+    digitalWrite(hiPin, 1);
+    digitalWrite(piPin, 1);
 
 
     pinMode(FanPin, OUTPUT);

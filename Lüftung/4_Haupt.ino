@@ -1,7 +1,7 @@
 
 int menu = 2;
 bool BleStatus = 0;
-unsigned long menuTimeout = 5000;
+unsigned long menuTimeout = 50000;
 //unsigned long menuTimeout = 10000;
 bool hitHundred = false;
 void loop() {
@@ -44,7 +44,10 @@ void loop() {
                 }
                 Serial.println(PWMFan, DEC);
                 lastReportedPos = PWMFan;
-                analogWrite(FanPin, PWMFan);
+                //analogWrite(FanPin, PWMFan);
+                //analogWrite25k(10, PWMFan);
+                pwmWrite(FanPin, PWMFan);
+                Serial.println("done");
 
             }
             if (Timer(menuTimeout) && timeout1 == 0) {
@@ -70,8 +73,77 @@ void loop() {
         }
         menu++;
         delay(500);
-    
-    case 1:
+       
+
+    case 1://Lüfter hinten
+        oled.setFont(TimesNewRoman16);
+        oled.clear();
+        oled.print("Lueftung hinten...:");
+        
+        delay(4000);
+        oled.clear();
+        oled.setFont(Arial_bold_14);
+        oled.print(PWMFan);
+        timeout1 = 0;
+        Serial.println("case 1");
+        while (digitalRead(Knob)) //Hauptloop?
+        {
+            rotating = true;
+            if (lastReportedPos != PWMFan)
+            {
+                TimerReset();
+                timeout1 = 0;
+                Serial.print("Index:");
+                oled.setCursor(0, 0);
+                oled.print(PWMFan);
+                oled.print("  ");
+                if (PWMFan >= 100) hitHundred = true;
+                if (PWMFan < 100 && hitHundred == true)
+                {
+                    oled.clear();
+                    oled.setCursor(0, 0);
+                    oled.print(PWMFan);
+                    hitHundred = false;
+                }
+                if (PWMFan < 10)
+                {
+                    oled.clear();
+                    oled.setCursor(0, 0);
+                    oled.print(PWMFan);
+                }
+                Serial.println(PWMFan, DEC);
+                lastReportedPos = PWMFan;
+                //analogWrite(FanPinHinten, PWMFan);
+                pwmWrite(FanPinHinten, PWMFan);
+                //analogWrite25k(FanPinHinten, PWMFan);
+
+            }
+            if (Timer(menuTimeout) && timeout1 == 0) {
+                timeout1 = 1;
+                oled.clear();
+            }
+            //delay(50);
+            BLE.listen();  // listen the BLE port
+            String buffer = "";
+            if (BLE.available()) //Wurden Daten vom SIM Modul gesendet?
+            {
+                char c;
+                int charCount = 0;
+                while (BLE.available()) {
+                    c = BLE.read();
+                    buffer.concat(c);
+                    delay(1);
+                }
+            }
+
+            if (buffer[0] == 'h') Serial.println("Hallo");
+
+        }
+        menu++;
+        delay(500);
+
+
+    case 2:
         int PWMFanSave = PWMFan;
         bool tmpStatus = 0;
         bool timeout = 0;
@@ -79,7 +151,6 @@ void loop() {
         oled.setFont(TimesNewRoman16);
         oled.clear();
         oled.print("Bluethooth:");
-
 
         if (BleStatus == 0)
             oled.print("Off");
@@ -121,7 +192,7 @@ void loop() {
         Serial.println(BleStatus);
     
     
-    case 2: //Temperaturanzeige
+    case 3: //Temperaturanzeige
 
         timeout = 0;
         unsigned long tmpTimeout = 50000;
